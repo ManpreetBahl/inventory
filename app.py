@@ -21,13 +21,19 @@ def index():
         sys.exit(1)
 
 #Request Page
-@app.route("/request", methods=['GET'])
+@app.route("/request", methods=['GET', 'POST'])
 def getRequest():
-    try:
-        return render_template("request.html")
-    except Exception as e:
-        print "Encountered error: " + str(e)
-        sys.exit(1)        
+    #If the method is a POST, send an email with the request details to the inventory manager
+    if request.method == "POST":
+        print request.form
+        return redirect(url_for("request"))
+
+    if request.method == "GET":
+        try:
+            return render_template("request.html")
+        except Exception as e:
+            print "Encountered error: " + str(e)
+            sys.exit(1)        
 
 def main():
     app.run(host='localhost', port=7000)
