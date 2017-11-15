@@ -8,14 +8,26 @@ import sys
 
 app = Flask(__name__)
 
-#Main Page
-@app.route('/', methods=['GET'])
+#Main page
+#@app.route("/login", methods=["GET"])
+
+#Checkout page
+@app.route("/checkout", methods=["GET"])
 def index():
     try:
         return render_template("checkout.html")
     except Exception as e:
         print "Encountered error: " + str(e)
         sys.exit(1)
+
+#Request Page
+@app.route("/request", methods=['GET'])
+def getRequest():
+    try:
+        return render_template("request.html")
+    except Exception as e:
+        print "Encountered error: " + str(e)
+        sys.exit(1)        
 
 def main():
     app.run(host='localhost', port=7000)
