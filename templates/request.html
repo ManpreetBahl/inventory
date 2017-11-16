@@ -29,23 +29,23 @@
         <form id="requestForm" method="POST">
             <div class="form-group">
                 <label for="itemName">Name of Item:</label>
-                <input type="text" class="form-control" id="itemName" placeholder="Enter item name" required>
+                <input type="text" class="form-control" id="itemName" placeholder="Enter item name" required="required">
             </div>
             <div class="form-group">
                 <label for="itemQuantity">Quantity:</label>
-                <input type="text" class="form-control" id="itemQuantity" placeholder="Enter number of item needed" required>
+                <input type="text" class="form-control" id="itemQuantity" placeholder="Enter number of item needed" required="required">
             </div>
             <div class="form-group">
                 <label for="custName">Your Name: </label>
-                <input type="text" class="form-control" id="custName" placeholder="Enter your name" required>
+                <input type="text" class="form-control" id="custName" placeholder="Enter your name" required="required">
             </div>
             <div class="form-group">
                 <label for="custEmail">Email address</label>
-                <input type="email" class="form-control" id="custEmail" placeholder="Enter email" required>
+                <input type="email" class="form-control" id="custEmail" placeholder="Enter email" required="required">
             </div>
             <div class="form-group">
                 <label for="otherInfo">Other Information:</label>
-                <textarea cols="50" rows="4" name="otherInfo" class="form-control" placeholder="Enter any other information such as item description." required></textarea>
+                <textarea cols="50" rows="4" id="otherInfo" class="form-control" placeholder="Enter any other information such as item description."></textarea>
             </div>
             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
         </form>
