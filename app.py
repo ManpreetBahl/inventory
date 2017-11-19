@@ -7,8 +7,22 @@ from flask import abort
 import sys
 import smtplib
 from email.mime.text import MIMEText
-app = Flask(__name__)
+import sqlalchemy
+from sqlalchemy import create_engine
+from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
+from sqlalchemy import inspect
 
+app = Flask(__name__)
+app.config["DEBUG"] = True
+
+
+engine = create_engine("postgresql://postgres:3t/Y(E\F^:5Ls;M4@localhost/inventory")
+
+"""
+(15, u'Banana', 2, u'A yellow fruit', 5, '$2.50')
+(20, u'Piano', 3, u'A musical instrument', 3, '$599.99')
+(25, u'Apple', 1, u'A healthy fruit', 10, '$1.50')
+"""
 #Main page
 #@app.route("/login", methods=["GET"])
 
@@ -16,7 +30,12 @@ app = Flask(__name__)
 @app.route("/checkout", methods=["GET"])
 def index():
     try:
-        return render_template("checkout.html")
+        #Get inventory data from database
+        con = engine.connect()
+        rows = con.execute("SELECT \"Name\", \"Description\", \"Quantity\" FROM inventory.items")
+        con.close()
+        
+        return render_template("checkout.html", result=rows)
     except Exception as e:
         print "Encountered error: " + str(e)
         sys.exit(1)
