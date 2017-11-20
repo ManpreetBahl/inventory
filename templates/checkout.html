@@ -4,6 +4,13 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   
+    <link rel="stylesheet" href="{{url_for('static', filename='node_modules/tablesaw/dist/tablesaw.css')}}">
+    <script type="text/javascript" src="{{url_for('static', filename='node_modules/tablesaw/dist/tablesaw.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='node_modules/tablesaw/dist/tablesaw-init.js')}}"></script>
+
+    <link rel="stylesheet" href="{{url_for('static', filename='checkout.css')}}"> 
+    <script type="text/javascript" src="{{url_for('static', filename='checkout.js')}}"></script>
 </head>
 
 <body>
@@ -25,25 +32,42 @@
     </nav>
 
     <div class="container">
-        <table border = 1>
-                <thead>
-                    <tr>
-                        <th>Item Name</th>
-                        <th>Description</th>
-                        <th>Quantity Available</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for name, description, quantity in result %}
-                    
-                    <tr>
-                        <th> {{ name }} </th>
-                        <td> {{ description }} </td>
-                        <td> {{ quantity }} </td>
-                    </tr>
-                    
-                    {% endfor %}
-                </tbody>
-            </table>
+        <h2>Available Items</h2>
+        <table id="checkoutTable" class="table table-bordered" border="1" data-tablesaw-sortable data-tablesaw-sortable-switch>
+            <thead>
+                <tr>
+                    <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Item</th>
+                    <th>Description</th>
+                    <th>Quantity Available</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for id, name, description, quantity in result %} 
+                <tr class="clickable-row" id={{id}}>
+                    <td id="name"> {{ name }} </td>
+                    <td id="desc">  {{ description }} </td>
+                    <td id="quantity"> {{ quantity }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="cart" class="container">
+        <h2>Cart</h2>
+        <table id="cartTable" class="table table-bordered" border="1">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Checkout Quanitity</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <button type="button" class="btn btn-success" id="checkout" disabled>Checkout</button>
     </div>
 </body>
