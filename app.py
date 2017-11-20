@@ -11,6 +11,7 @@ import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
 from sqlalchemy import inspect
+import json
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -30,7 +31,7 @@ engine = create_engine("postgresql://postgres:3t/Y(E\F^:5Ls;M4@localhost/invento
 @app.route("/checkout", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        print request.form
+        print request.json
         return redirect(url_for("index"))
 
     if request.method == "GET":
