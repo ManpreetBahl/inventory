@@ -1,19 +1,21 @@
+function check() {
+    if( (jQuery("#cartTable > tbody").children("tr").length) <= 0) {
+        jQuery("#cart").hide();
+        jQuery("#checkout").prop('disabled', true);
+        jQuery("#remove").prop('disabled', true);
+    }
+    else{
+        jQuery("#cart").show();
+        jQuery("#checkout").prop('disabled', false);
+        jQuery("#remove").prop('disabled', false);
+    }
+}
+
 //Code was obtained from https://stackoverflow.com/questions/3458571/jquery-click-event-on-tr-elements-with-in-a-table-and-getting-td-element-v
 $(document).ready(function(){
     jQuery("#cart").hide();
 
-    $("#checkoutTable > tbody > tr").on("click", ".clickable-row", function(event){
-        if( $("#cartTable > tbody").children("tr").length >= 0) {
-            jQuery("#cart").show();
-            jQuery("#checkout").prop('disabled', false);
-            jQuery("#remove").prop('disabled', false);
-        }
-        else{
-            jQuery("#cart").hide();
-            jQuery("#checkout").prop('disabled', true);
-            jQuery("#remove").prop('disabled', true);
-        }
-       
+    $("#checkoutTable > tbody > tr").on("click", ".clickable-row", function(event){        
         var id = $(this).attr("id"); //This line was found at https://stackoverflow.com/questions/1618209/jquery-how-to-get-the-value-of-id-attribute
         var itemName = $(this).find("#name > .tablesaw-cell-content").text().trim();
         var desc = $(this).find("#desc > .tablesaw-cell-content").text().trim();
@@ -32,6 +34,7 @@ $(document).ready(function(){
         if(inTable === false){
             jQuery('#cartTable tbody').append("<tr itemID=\"" + id + "\"><td><input type=\"checkbox\" id=\"checkbox\"></input></td><td>" + itemName + "</td><td>" + desc + "</td><td><input type=\"number\" id=\"quantityWanted\" value=\"1\" min=\"1\" max=\"" + quantity + "\"/></td></tr>"); 
         }
+        check();
     });
 
     $("#checkout").on("click", function(event){
@@ -70,5 +73,14 @@ $(document).ready(function(){
             }
         });
         
+    });
+
+    $("#remove").on("click", function(event){
+        $("#cartTable tbody").find("tr").each(function(){
+            if( $(this).find('#checkbox').is(":checked")){
+                $(this).remove();
+            }
+        });
+        check();
     });
 });
