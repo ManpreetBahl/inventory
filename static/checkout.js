@@ -12,11 +12,24 @@ $(document).ready(function(){
             jQuery("#checkout").prop('disabled', true);
         }
        
+        var id = $(this).attr("id"); //This line was found at https://stackoverflow.com/questions/1618209/jquery-how-to-get-the-value-of-id-attribute
         var itemName = $(this).find("#name > .tablesaw-cell-content").text().trim();
         var desc = $(this).find("#desc > .tablesaw-cell-content").text().trim();
         var quantity = $(this).find("#quantity > .tablesaw-cell-content").text().trim();
 
-        jQuery('#cartTable tbody').append("<tr><td>" + itemName + "</td><td>" + desc + "</td><td><input type=\"number\" id=\"quantityWanted\" value=\"1\" min=\"1\" max=\"" + quantity + "\"/></td></tr>"); 
+        var inTable = false;
+        jQuery("#cartTable tbody").find("tr").each(function(){
+            var itemID = jQuery(this).attr("itemID");
+            if(itemID === id){
+                inTable = true;
+                jQuery(this).find("#quantityWanted")[0].value = (parseInt(jQuery(this).find("#quantityWanted")[0].value,10) + 1).toString();
+                return;
+            }
+        });
+
+        if(inTable === false){
+            jQuery('#cartTable tbody').append("<tr itemID=\"" + id + "\"><td>" + itemName + "</td><td>" + desc + "</td><td><input type=\"number\" id=\"quantityWanted\" value=\"1\" min=\"1\" max=\"" + quantity + "\"/></td></tr>"); 
+        }
     });
 
     $("#checkout").on("click", function(event){
