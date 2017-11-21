@@ -30,7 +30,7 @@ $(document).ready(function(){
         });
 
         if(inTable === false){
-            jQuery('#cartTable tbody').append("<tr itemID=\"" + id + "\"><td>" + itemName + "</td><td>" + desc + "</td><td><input type=\"number\" id=\"quantityWanted\" value=\"1\" min=\"1\" max=\"" + quantity + "\"/></td></tr>"); 
+            jQuery('#cartTable tbody').append("<tr itemID=\"" + id + "\"><td><input type=\"checkbox\" id=\"checkbox\"></input></td><td>" + itemName + "</td><td>" + desc + "</td><td><input type=\"number\" id=\"quantityWanted\" value=\"1\" min=\"1\" max=\"" + quantity + "\"/></td></tr>"); 
         }
     });
 
