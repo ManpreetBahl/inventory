@@ -6,10 +6,12 @@ $(document).ready(function(){
         if( $("#cartTable > tbody").children("tr").length >= 0) {
             jQuery("#cart").show();
             jQuery("#checkout").prop('disabled', false);
+            jQuery("#remove").prop('disabled', false);
         }
         else{
             jQuery("#cart").hide();
             jQuery("#checkout").prop('disabled', true);
+            jQuery("#remove").prop('disabled', true);
         }
        
         var id = $(this).attr("id"); //This line was found at https://stackoverflow.com/questions/1618209/jquery-how-to-get-the-value-of-id-attribute
