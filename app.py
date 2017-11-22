@@ -15,25 +15,34 @@ import json
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
-
-
 engine = create_engine("postgresql://postgres:3t/Y(E\F^:5Ls;M4@localhost/inventory")
 
-"""
-(15, u'Banana', 2, u'A yellow fruit', 5, '$2.50')
-(20, u'Piano', 3, u'A musical instrument', 3, '$599.99')
-(25, u'Apple', 1, u'A healthy fruit', 10, '$1.50')
-"""
 #Main page
 #@app.route("/login", methods=["GET"])
 
 #Checkout page
 @app.route("/checkout", methods=["GET", "POST"])
-def index():
+def checkout():
     if request.method == "POST":
-        print request.json
-        return redirect(url_for("index"))
+        try:
+            con = engine.connect()
+            con.connect()
+            for item in request.json:
+                quantity = item['checkoutquantity']
+                if int(quantity) < 0:
+                    abort(400, description="Can not have negative checkout out quantity")
+                else:
+                    #SQL below was found here: https://stackoverflow.com/questions/16277339/decrement-value-in-mysql-but-not-negative
+            #Parameterized SQL was found here: https://stackoverflow.com/questions/902408/how-to-use-variables-in-sql-statement-in-python
+                    con.execute("UPDATE inventory.items SET \"Quantity\" = \"Quantity\" - %s WHERE \"ID\" = %s", (quantity, item['itemID']))
+            con.close()
+            
+            return render_template('checkout.html')
 
+        except Exception as e:
+            print "Encountered error: " + str(e)
+            sys.exit(1)
+        
     if request.method == "GET":
         try:
             #Get inventory data from database

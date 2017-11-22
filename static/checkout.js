@@ -32,7 +32,7 @@ $(document).ready(function(){
         });
 
         if(inTable === false){
-            jQuery('#cartTable tbody').append("<tr itemID=\"" + id + "\"><td><input type=\"checkbox\" id=\"checkbox\"></input></td><td>" + itemName + "</td><td>" + desc + "</td><td><input type=\"number\" id=\"quantityWanted\" value=\"1\" min=\"1\" max=\"" + quantity + "\"/></td></tr>"); 
+            jQuery('#cartTable tbody').append("<tr id=\"" + id + "\"><td><input type=\"checkbox\" id=\"checkbox\"></input></td><td>" + itemName + "</td><td>" + desc + "</td><td><input type=\"number\" id=\"quantityWanted\" value=\"1\" min=\"1\" max=\"" + quantity + "\"/></td></tr>"); 
         }
         check();
     });
@@ -41,17 +41,21 @@ $(document).ready(function(){
         //Get table data and convert it into JSON
         //Code below was taken from http://johndyer.name/html-table-to-json/ and modified to meet the needs
         var table = $("#cartTable")[0].rows;
+        //console.log(table);
         var cart = []; 
         var headers = []; 
         for (var i = 0; i < table[0].cells.length; i++) {
             headers[i] = table[0].cells[i].innerHTML.toLowerCase().replace(/ /gi,''); 
         } 
+        headers[headers.length - 1] = 'itemID';
         for (var i = 1; i < table.length; i++) { 
-            var tableRow = table[i]; 
+            var tableRow = table[i];
+            
             var rowData = {}; 
-            for (var j = 0; j < tableRow.cells.length -1 ; j++) { 
+            for (var j = 1; j < tableRow.cells.length -1 ; j++) { 
                 rowData[ headers[j] ] = tableRow.cells[j].innerHTML; 
-            } 
+            }
+            rowData[headers[headers.length -1]] = tableRow.id; 
             cart.push(rowData); 
         } 
         var quantityWanted = $("#cartTable > tbody > tr").find("#quantityWanted");
@@ -59,7 +63,6 @@ $(document).ready(function(){
             cart[k]["checkoutquantity"] = quantityWanted[k].value;
         }
 
-        //console.log(JSON.stringify(cart));
         jQuery.ajax({
             type: "POST",
             url: "/checkout",
@@ -67,12 +70,12 @@ $(document).ready(function(){
             data: JSON.stringify(cart),
             success: function(){
                 alert("Successfully checked out items!");
+                location.reload(true);
             },
             error: function(err){
                 alert("Unable to checkout!\n" + "Status: " + err.status + "\nError Message: " + err.statusText);
             }
-        });
-        
+        });        
     });
 
     $("#remove").on("click", function(event){
