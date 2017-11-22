@@ -56,18 +56,39 @@ def index():
             sys.exit(1)
 
 #Checkin Page
-@app.route("/checkin", methods=["GET"])
+@app.route("/checkin", methods=["GET", "POST"])
 def getCheckIn():
-    try:
-        #Get inventory data from database
-        con = engine.connect()
-        rows = con.execute("SELECT \"ID\", \"Name\", \"Description\", \"Quantity\" FROM inventory.items ORDER BY \"Name\"")
-        con.close()
+    if request.method == "POST":
+        try:
+            con = engine.connect()
+            con.connect()
+            for item in request.json:
+                quantity = item['checkinquantity']
+                if int(quantity) < 0:
+                    abort(400, description="Can not have negative checkout out quantity")
+                else:
+                    #SQL below was found here: https://stackoverflow.com/questions/16277339/decrement-value-in-mysql-but-not-negative
+                    #Parameterized SQL was found here: https://stackoverflow.com/questions/902408/how-to-use-variables-in-sql-statement-in-python
+                    con.execute("UPDATE inventory.items SET \"Quantity\" = \"Quantity\" + %s WHERE \"ID\" = %s", (quantity, item['itemID']))
+            con.close()
+            
+            return render_template('checkin.html')
 
-        return render_template("checkin.html", result=rows)
-    except Exception as e:
-        print "Encountered error: " + str(e)
-        sys.exit(1)
+        except Exception as e:
+            print "Encountered error: " + str(e)
+            sys.exit(1)
+
+    if request.method == "GET":    
+        try:
+            #Get inventory data from database
+            con = engine.connect()
+            rows = con.execute("SELECT \"ID\", \"Name\", \"Description\", \"Quantity\" FROM inventory.items ORDER BY \"Name\"")
+            con.close()
+
+            return render_template("checkin.html", result=rows)
+        except Exception as e:
+            print "Encountered error: " + str(e)
+            sys.exit(1)
 
 #Request Page
 @app.route("/request", methods=['GET', 'POST'])

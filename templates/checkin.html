@@ -10,7 +10,7 @@
     <script type="text/javascript" src="{{url_for('static', filename='node_modules/tablesaw/dist/tablesaw-init.js')}}"></script>
 
     <link rel="stylesheet" href="{{url_for('static', filename='checkout.css')}}"> 
-    <script type="text/javascript" src="{{url_for('static', filename='checkout.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='checkin.js')}}"></script>
 </head>
 
 <body>
@@ -33,7 +33,7 @@
 
     <div class="container">
         <h2>Available Items</h2>
-        <table id="checkinTable" class="table table-bordered" border="1" data-tablesaw-sortable data-tablesaw-sortable-switch>
+        <table id="inventoryTable" class="table table-bordered" border="1" data-tablesaw-sortable data-tablesaw-sortable-switch>
             <thead>
                 <tr>
                     <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Item</th>
@@ -70,6 +70,6 @@
     </div>
     <div class="container" id="buttonGroup">
         <button type="button" class="btn btn-danger" id="remove" disabled>Remove Selected Item(s)</button>
-        <button type="button" class="btn btn-success" id="checkin" disabled>Checkin</button>
+        <button type="button" class="btn btn-success" id="checkinButton" disabled>Checkin</button>
     </div>
 </body>
