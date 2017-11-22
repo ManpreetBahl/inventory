@@ -22,7 +22,7 @@ engine = create_engine("postgresql://postgres:3t/Y(E\F^:5Ls;M4@localhost/invento
 
 #Checkout page
 @app.route("/checkout", methods=["GET", "POST"])
-def checkout():
+def index():
     if request.method == "POST":
         try:
             con = engine.connect()
@@ -55,7 +55,19 @@ def checkout():
             print "Encountered error: " + str(e)
             sys.exit(1)
 
+#Checkin Page
+@app.route("/checkin", methods=["GET"])
+def getCheckIn():
+    try:
+        #Get inventory data from database
+        con = engine.connect()
+        rows = con.execute("SELECT \"ID\", \"Name\", \"Description\", \"Quantity\" FROM inventory.items ORDER BY \"Name\"")
+        con.close()
 
+        return render_template("checkin.html", result=rows)
+    except Exception as e:
+        print "Encountered error: " + str(e)
+        sys.exit(1)
 
 #Request Page
 @app.route("/request", methods=['GET', 'POST'])

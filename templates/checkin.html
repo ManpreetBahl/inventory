@@ -21,8 +21,8 @@
                 <a class="navbar-brand" href="#">IMS</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/checkout">Checkout</a></li>
-                <li><a href="/checkin">Checkin</a></li>
+                <li><a href="/checkout">Checkout</a></li>
+                <li class="active"><a href="/checkin">Checkin</a></li>
                 <li><a href="/request">Request</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -33,7 +33,7 @@
 
     <div class="container">
         <h2>Available Items</h2>
-        <table id="checkoutTable" class="table table-bordered" border="1" data-tablesaw-sortable data-tablesaw-sortable-switch>
+        <table id="checkinTable" class="table table-bordered" border="1" data-tablesaw-sortable data-tablesaw-sortable-switch>
             <thead>
                 <tr>
                     <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Item</th>
@@ -52,15 +52,15 @@
             </tbody>
         </table>
     </div>
-    <div id="cart" class="container">
-        <h2>Cart</h2>
-        <table id="cartTable" class="table table-bordered" border="1">
+    <div id="checkin" class="container">
+        <h2>Checkin Items</h2>
+        <table id="checkinTable" class="table table-bordered" border="1">
             <thead>
                 <tr>
                     <th></th>
                     <th>Item</th>
                     <th>Description</th>
-                    <th>Checkout Quanitity</th>
+                    <th>Checkin Quanitity</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,6 +70,6 @@
     </div>
     <div class="container" id="buttonGroup">
         <button type="button" class="btn btn-danger" id="remove" disabled>Remove Selected Item(s)</button>
-        <button type="button" class="btn btn-success" id="checkout" disabled>Checkout</button>
+        <button type="button" class="btn btn-success" id="checkin" disabled>Checkin</button>
     </div>
 </body>
