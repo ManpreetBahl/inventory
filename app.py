@@ -33,7 +33,7 @@ def index():
                     abort(400, description="Can not have negative checkout out quantity")
                 else:
                     #SQL below was found here: https://stackoverflow.com/questions/16277339/decrement-value-in-mysql-but-not-negative
-            #Parameterized SQL was found here: https://stackoverflow.com/questions/902408/how-to-use-variables-in-sql-statement-in-python
+                    #Parameterized SQL was found here: https://stackoverflow.com/questions/902408/how-to-use-variables-in-sql-statement-in-python
                     con.execute("UPDATE inventory.items SET \"Quantity\" = \"Quantity\" - %s WHERE \"ID\" = %s", (quantity, item['itemID']))
             con.close()
             

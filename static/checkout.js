@@ -23,7 +23,7 @@ $(document).ready(function(){
 
         var inTable = false;
         jQuery("#cartTable tbody").find("tr").each(function(){
-            var itemID = jQuery(this).attr("itemID");
+            var itemID = jQuery(this).attr("id");
             if(itemID === id){
                 inTable = true;
                 jQuery(this).find("#quantityWanted")[0].value = (parseInt(jQuery(this).find("#quantityWanted")[0].value,10) + 1).toString();
