@@ -66,7 +66,6 @@ $(document).ready(function(){
         //Get table data and convert it into JSON
         //Code below was taken from http://johndyer.name/html-table-to-json/ and modified to meet the needs
         var table = $("#checkinTable")[0].rows;
-        //console.log(table);
         var cart = []; 
         var headers = []; 
         for (var i = 0; i < table[0].cells.length; i++) {
@@ -105,7 +104,7 @@ $(document).ready(function(){
     });
 
     //When this button is clicked, it will remove all items that are checked in the 
-    //check in table. If removing an item results in a table with no rows, the table
+    //checkin table. If removing an item results in a table with no rows, the table
     //is hidden due to the call to check function.
     $("#remove").on("click", function(event){
         $("#checkinTable tbody").find("tr").each(function(){
