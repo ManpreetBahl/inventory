@@ -2,6 +2,9 @@
 # Inventory Management System
 # Manpreet Bahl
 # CS 510- Full Stack Project
+# The Python Flask tutorial played a key role to the structure and development
+# of the backend. The link to the Flask tutorial can be found here:
+#   http://flask.pocoo.org/docs/0.12/tutorial/ 
 #################################################################################
 
 #################################################################################
