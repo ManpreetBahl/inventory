@@ -1,4 +1,9 @@
-<!<!DOCTYPE html>
+<!-- 
+    Checkin HTML Page
+    Manpreet Bahl
+    Inventory Management System
+-->
+<!DOCTYPE html>
 
 <head>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -42,6 +47,7 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Flask table populating was found here: https://stackoverflow.com/questions/13315883/how-to-structure-data-to-easily-build-html-tables-in-flask -->
                 {% for id, name, description, quantity in result %} 
                 <tr class="clickable-row" id={{id}}>
                     <td id="name"> {{ name }} </td>
